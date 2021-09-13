@@ -1,9 +1,8 @@
 package com.biz.deckofcard;
 
-
 import java.util.Random;
 
-class DeckOfCards {
+public class DeckOfCards {
     int[][] cards = new int[4][13];
 
     public static void main(String[] args) {
