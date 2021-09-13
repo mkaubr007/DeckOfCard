@@ -15,7 +15,7 @@ public class DeckOfCards {
 
 
     void start() {
-        playerQueue = new MyQueue<Player>();
+        playerQueue = new MyQueue<>();
         cardsArray = new int[4][13];
         for(int i = 0; i < 4; i++) {
             addPlayers();

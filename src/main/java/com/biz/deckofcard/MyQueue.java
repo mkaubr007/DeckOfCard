@@ -19,13 +19,5 @@ public class MyQueue<T> {
         return myLinkedList.pop(0);
     }
 
-
-    public boolean isEmpty(){
-        return myLinkedList.isEmpty();
-    }
-
-    public int size(){
-        return myLinkedList.size();
-    }
 }
 

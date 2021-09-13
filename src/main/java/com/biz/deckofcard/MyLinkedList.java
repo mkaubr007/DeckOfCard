@@ -38,9 +38,6 @@ public class MyLinkedList<T>{
     }
 
 
-
-
-
     public T pop(int location){
         MyNode<T> tempCurrent = head;
         MyNode<T> tempPrev = null;
