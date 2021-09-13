@@ -8,9 +8,9 @@ public class DeckOfCards {
     int[][] cardsArray;
     public static void main(String[] args) {
 
-        DeckOfCards extended = new DeckOfCards();	//	class object
-        extended.start();	//	starts queueing
-        extended.dequeuePlayers();	//	dequeues players
+        DeckOfCards extended = new DeckOfCards();
+        extended.start();
+        extended.dequeuePlayers();
     }
 
 
