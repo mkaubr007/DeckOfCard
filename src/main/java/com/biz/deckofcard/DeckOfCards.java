@@ -3,92 +3,64 @@ package com.biz.deckofcard;
 import java.util.Random;
 
 public class DeckOfCards {
-    int[][] cards = new int[4][13];
 
+    MyQueue<Player> playerQueue;
+    int[][] cardsArray;
     public static void main(String[] args) {
-        DeckOfCards deckOfCards = new DeckOfCards();
 
-        for (int playerNumber = 1; playerNumber <= 4; playerNumber++) {
-            deckOfCards.allotCards(playerNumber);
-            System.out.println("Player " + playerNumber + "'s cards:");
-            deckOfCards.print(playerNumber);
+        DeckOfCards extended = new DeckOfCards();	//	class object
+        extended.start();	//	starts queueing
+        extended.dequeuePlayers();	//	dequeues players
+    }
+
+
+    void start() {
+        playerQueue = new MyQueue<Player>();
+        cardsArray = new int[4][13];
+        for(int i = 0; i < 4; i++) {
+            addPlayers();
         }
     }
 
-    void allotCards(int playerNumber) {
+
+    void addPlayers() {
+        Player player = new Player();
         for (int i = 0; i < 9; i++) {
-            allotOneCard(playerNumber);
+            allotCard(player);
         }
-    }
-    void allotOneCard(int playerNumber) {
-        Random random = new Random();
+        player.enqueueCards();
+        playerQueue.enqueue(player);	    }
 
+
+    void allotCard(Player player) {
+        Random random = new Random();
         int suit = random.nextInt(4);
         int rank = random.nextInt(13);
-
-        if (cards[suit][rank] != 0) {
-            allotOneCard(playerNumber);
-        } else {
-            cards[suit][rank] = playerNumber;
+        if(cardsArray[suit][rank] == 0) {
+            player.addCard(suit, rank);
+            cardsArray[suit][rank] = 1;
+        }
+        else {
+            allotCard(player);
         }
     }
 
-    void print(int playerNumber) {
-        for (int suit = 0; suit < 4; suit++) {
-            for (int rank = 0; rank < 13; rank++) {
-                if (cards[suit][rank] == playerNumber) {
-                    System.out.print(getSuit(suit) + " " + getRank(rank) + "\t");
-                }
-            }
-        }
-        System.out.println("\n");
-    }
 
-    String getRank(int rankNumber) {
-        switch (rankNumber) {
-            case 0:
-                return "2";
-            case 1:
-                return "3";
-            case 2:
-                return "4";
-            case 3:
-                return "5";
-            case 4:
-                return "6";
-            case 5:
-                return "7";
-            case 6:
-                return "8";
-            case 7:
-                return "9";
-            case 8:
-                return "10";
-            case 9:
-                return "Jack";
-            case 10:
-                return "Queen";
-            case 11:
-                return "King";
-            case 12:
-                return "Ace";
-            default:
-                return "";
+    void dequeuePlayers() {
+        for(int i = 0; i < 4; i++) {
+            Player player = playerQueue.dequeue();
+            System.out.println("Player " + (i+1) + "'s cards:");
+            printPlayerCards(player);
+            System.out.println();
         }
     }
 
-    String getSuit(int suitNumber) {
-        switch (suitNumber) {
-            case 0:
-                return "Clubs";
-            case 1:
-                return "Diamonds";
-            case 2:
-                return "Hearts";
-            case 3:
-                return "Spades";
-            default:
-                return "";
+
+    void printPlayerCards(Player player) {
+        for (int i = 0; i < 9; i++) {
+            Card card = player.getCard();
+            System.out.print(card.getSuit() + " " + card.getRank() + "\t");
         }
+        System.out.println();
     }
 }
